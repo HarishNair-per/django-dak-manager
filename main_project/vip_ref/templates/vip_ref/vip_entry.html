@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class='container'>
+<br>
+<br>
+<div class="card text-dark bg-light fw-800" >
+            <div class='position-relative mb-3'>
+                <div class='position-absolute top-0 start-0'>
+                    <h4 class="text-dark mx-3 mt-2"> VIP Master Maintenance </h4>
+                    
+                </div>
+                
+            </div>
+            
+            <br>
+            <hr>
+            
+            
+        <div class="card-body">
+            <form class="form" action="" method="POST">
+                      {% csrf_token %}
+
+                      <div class="form-group">
+                        <label class='mb-3 f-4' for="vip_name"> &numsp; Enter VIP</label>
+                        <input required type="text" name="vip_name" id='vip_name'
+                        placeholder='Enter VIP' list= 'vip_name-list' class='form-control' />
+                        <datalist id="vip_name-list">
+                          <!--select id="vip_name"-->
+                            {% for vip in vips %}
+                            <option value="{{vip.vip|title}}"></option>
+                            <!--<option value="{{vip.vip|title}}">{{vip.vip}}</option>-->
+                            {% endfor %}
+                          <!--/select-->
+                        </datalist>
+                      </div>
+
+
+                      
+                    <br>
+                    
+                      <div class="form__action m-3">
+                        <a class="btn btn-dark w-20" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+                        <button class="btn btn-primary w-20" type="submit">Submit</button>
+                      </div>
+            </form>
+          </div>
+        </div>
+    </div>
+{% endblock content%}

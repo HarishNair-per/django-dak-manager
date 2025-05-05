@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    
+        <div class="container-fluid" style="width:1440px;">
+       
+        <div class="card text-white bg-secondary fw-800" >
+            <div class='position-relative mb-3'>
+                <div class='position-absolute top-0 start-0'>
+                    <h4 class="text-white mx-3 mt-2"> VIP Reference List </h4>
+                    
+                </div>
+                <div class="position-absolute top-0 end-0 mt-2 me-5">
+                    <a class="btn btn-info " href="{% url 'vip:add_data' %}">Add Reference</a>
+                </div>
+            </div>
+            
+            <br>
+            <hr>
+            
+            
+        <div class="card-body">
+             
+             
+        <table id="example" class="table  table-hover table-bordered mt-2  mb-1" >
+            <thead class=" table-dark">
+                <tr>
+                    <th>Ref.Date</th>
+                    <th>Ref.Subject</th>
+                    <th>VIP</th>
+                    <th>VIP_Sub</th>
+                    <th>In Date</th>
+                    <th>HOD</th>
+                    <th>Out Ref</th>
+                    <th>Out Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in data %}
+                <tr>
+                    <td>{{d.reference_dt | date:"d-m-Y" }}</td>
+                    <td>{{d.reference_subject}}</td>
+                    <td>{{d.vip}}</td>
+                    <td>{{d.vip_sub}}</td>
+                    <td>{{d.inward_dt| date:"d-m-Y"}}</td>
+                    <td>{{d.hod.all|join:", "}}</td>
+                    <td>{{d.outward_ref}}</td>
+                    <td>{{d.outward_dt | date:"d-m-Y"}}</td>
+                    <td>{{d.pending}}</td>
+                    <td>
+                    <a class="btn btn-info ms-2" href="{% url 'vip:view_ref' d.id %}">View</a>
+                    <a class="btn btn-primary ms-2" href="{% url 'vip:update_data' d.id %}">Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Ref.Date</th>
+                    <th>Ref.Subject</th>
+                    <th>VIP</th>
+                    <th>VIP_Sub</th>
+                    <th>In Date</th>
+                    <th>HOD</th>
+                    <th>Out Ref</th>
+                    <th>Out Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        
+        </table>
+        
+    </div>
+    
+    </div>
+    
+</div>  
+
+
+    {% endblock content %}

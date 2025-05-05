@@ -1,0 +1,38 @@
+{% load static %}
+   <nav class="navbar navbar-expand-lg bg-info-subtle shadow-lg rounded-2">
+                    <div class="container-fluid ms-0 pe-5 ">
+                      <a class="navbar-brand img-fluid" href="{% url 'vip:viphome' %}" >
+                         <img src="{% static '/images/logo.png' %}" width="150px" height="100px" > 
+                      </a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav align-items-baseline justify-content-evenly px-5 ">
+                          <li class="nav-item ">
+                            <a class="nav-link hovercolor fs-4" aria-current="page" href="{% url 'vip:home' %}">VIP Reference</a>
+                          </li>
+                          <li class="nav-item ">
+                            <a class="nav-link hovercolor fs-4" href="{% url 'vig:vig_home' %}">Vigilance</a>
+                          </li>
+                          <li class="nav-item ">
+                            <a class="nav-link hovercolor fs-4" href="{% url 'fur:fur_home' %}">Furniture</a>
+                          </li>
+
+                           <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle  fs-5 hovercolor" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Master Maintenance
+                            </a>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item hovercolor" href="{% url 'vip:vip_entry'%}">VIP Master Entry</a></li>
+                              <li><a class="dropdown-item hovercolor" href="{% url 'vig:comp_entry'%}">Complaintant Master Entry</a></li>
+                              <!--<li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+                            </ul>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </nav> 
+                  <hr style="width:100%; border-bottom: 2px solid blue;">

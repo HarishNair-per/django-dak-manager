@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class='container'>
+<form class="form" action="{% url 'vig:comp_entry' %}" method="POST">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label class='mb-3' for="complainant_name"> Enter Complainant</label>
+            <input required type="text" value='{{ complainant.name }}' name="complainant_name" id='complainant_name'
+             placeholder='Enter Complainant' list= 'complainant_name-list' class='form-control' />
+            <datalist id="complainant_name-list">
+              <select id="vip_name">
+                {% for complainant in complainans %}
+                <option value="{{complainant.name|title}}">{{complainant.name}}</option>
+                <!--<option value="{{vip.vip|title}}">{{vip.vip}}</option>-->
+                {% endfor %}
+              </select>
+            </datalist>
+          </div>
+
+          <div class="form-control">
+            <label for="address">Address</label>
+            <textarea id="txtArea" value="{{complainant.address}}" name='address' rows="2" cols="70" class='form-control'></textarea>
+            
+          </div>
+
+          <div class="form-control">
+            <label for="mobile">Mobile</label>
+            <input type='number' value="{{complainant.mobile}}" name='mobile' class='form-control'>
+          </div>
+
+          
+
+          
+
+          <div class="form__action m-3">
+          <!--  <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a> -->
+            <button class="btn btn-primary w-20" type="submit">Submit</button>
+          </div>
+</form>
+
+{% endblock content%}

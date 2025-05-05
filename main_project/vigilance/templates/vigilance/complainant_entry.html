@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class='container'>
+
+<div class="card text-dark bg-light fw-800" >
+            <div class='position-relative mb-3'>
+                <div class='position-absolute top-0 start-0'>
+                    <h4 class="text-dark mx-3 mt-2"> Complainant Master Maintenance </h4>
+                    
+                </div>
+                
+            </div>
+            
+            <br>
+            <hr>
+            
+            
+        <div class="card-body">
+
+            <form class="form" action="" method="POST">
+                      {% csrf_token %}
+
+                      <div class="form-group">
+                        {{ form.name |as_crispy_field  }}
+                        <datalist id="names">
+                          {% for person in persons %}
+                            <option class= 'table table-bordered' value="{{ person.name }}">
+                          {% endfor %}
+                        </datalist>
+                      </div>
+
+                        {{ form.address |as_crispy_field }}
+                        {{ form.mobile |as_crispy_field }}
+                <a class="btn btn-dark w-20" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+                <button class='btn btn-primary w-20' type="submit">Save</button>
+            </form>
+        </div>
+      </div>
+</div>
+
+{% endblock content%}
+
+{% block script %}
+ <script>
+  document.getElementById('id_name').addEventListener('change', function () {
+    const name = this.value;
+    console.log("Name changed:", name);
+    fetch(`/vig/get-person-details/?name=${encodeURIComponent(name)}`)
+    /*fetch("{% url 'vig:get_person_details' %}?name="+ encodeURIComponent(name))  ----- can be used instead*/
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('id_address').value = data.address;
+            document.getElementById('id_mobile').value = data.mobile;
+        });
+});
+</script>
+{% endblock script %}
