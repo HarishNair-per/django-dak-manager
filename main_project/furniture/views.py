@@ -24,7 +24,8 @@ def render_pdf_view(request, *args, **kwargs):
 
     # Create a Django response object, and set content type to PDF
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="assets.pdf"'
+    response['Content-Disposition'] = 'filename="assets.pdf"'
+    #response['Content-Disposition'] = 'attachment; filename="assets.pdf"'
 
     # find the template and render it.
     template = get_template(template_path)
@@ -41,7 +42,7 @@ def render_pdf_view(request, *args, **kwargs):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
 
     return response
-    
+
 # end pdf gen.
 
 def fur_home(request):

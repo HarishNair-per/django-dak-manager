@@ -5,23 +5,10 @@
 {% block content %}
 
     
-        <div class="container-fluid" style="width:1440px;">
         
-        <div class="card text-white bg-secondary fw-800" >
-            <div class='position-relative mb-3'>
-                <div class='position-absolute top-0 start-0'>
                     <h1 class="text-white mx-3 mt-2"> Asset List </h1>
                     
-                </div>
-                
-            </div>
-            
-            <br>
-            
-            
-            
-        <div class="card-body">
-             
+
              
         <table repeat="1"  >
             <thead >
@@ -50,7 +37,7 @@
                     <td>{{d.furniture_model}}</td>
                     <td>{{d.furniture_serial}}</td>
                     <td>{{d.get_furniture_room_display}}</td>
-                    <td>{{furniture_remarks}}</td>
+                    <td>{{d.furniture_remarks}}</td>
                     
                     
                      
@@ -62,12 +49,6 @@
             </tfoot>
         
         </table>
-        
-    </div>
-    
-    </div>
-    
-</div>  
 
 
     {% endblock content %}
