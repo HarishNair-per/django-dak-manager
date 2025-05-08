@@ -41,7 +41,8 @@ def render_pdf_view(request, *args, **kwargs):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
 
     return response
-#
+    
+# end pdf gen.
 
 def fur_home(request):
     data = Furniture.objects.all()
