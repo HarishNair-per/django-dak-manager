@@ -1,8 +1,47 @@
+
 from django.shortcuts import render,redirect, get_object_or_404
+
+import os
+
+#from django.contrib.staticfiles import finders
+
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
 from django.http import HttpResponse
 from .models import Furniture, AssetDesc
 from .forms import AddAssetForm
+
 # Create your views here.
+
+
+# pdf generation code
+
+def render_pdf_view(request, *args, **kwargs):
+    data= Furniture.objects.all()
+    template_path = 'furniture/asset_home_pdf.html'
+    context = {'data': data}
+
+    # Create a Django response object, and set content type to PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="assets.pdf"'
+
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html,
+       dest=response
+    )
+
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
+    return response
+#
 
 def fur_home(request):
     data = Furniture.objects.all()

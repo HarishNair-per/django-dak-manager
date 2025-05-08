@@ -23,8 +23,8 @@ urlpatterns = [
     path('', views.vip_home , name='viphome'),
     path('vip/', views.home , name='home'),
     path('add_data/', views.add_data , name='add_data'),
-    path('update_data/<str:pk>', views.update_data , name='update_data'),
-    path('view_ref/<str:pk>', views.view_ref, name='view_ref'),
+    path('update_data/<str:pk>/', views.update_data , name='update_data'),
+    path('view_ref/<str:pk>/', views.view_ref, name='view_ref'),
     path('vip_entry/', views.createVIP, name='vip_entry'),
     path('hod_entry/', views.createHOD, name='hod_entry'),
 

@@ -9,8 +9,8 @@ urlpatterns = [
     path('get-person-details/', views.get_person_details, name='get_person_details'),
     path('comp_entry/', views.createComplainant , name='comp_entry'),
     path('vig_add/', views.vig_add_data , name='vig_add'),
-    path('vig_update/<str:pk>', views.vig_update_data , name='vig_update'),
-    path('vig_view/<str:pk>', views.vig_view_ref , name='vig_view'),
+    path('vig_update/<str:pk>/', views.vig_update_data , name='vig_update'),
+    path('vig_view/<str:pk>/', views.vig_view_ref , name='vig_view'),
     
     
 ]
