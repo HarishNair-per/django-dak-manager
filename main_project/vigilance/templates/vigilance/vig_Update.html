@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+  
+
+{% block content %}
+
+<form  method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="container mt-5" >
+     <div class="container mt-5" style="width:800px;" >
+    <div class="card  bg-secondary  fw-800" >
+    <h4 class="card-header"> Update Vigilance Reference </h4>
+    <div class="card-body">
+
+    {{ form | crispy }}
+
+   
+    <div class="col text-center justify-content-center">
+        <a href="{% url 'vig:vig_home' %}">
+            <!--<button class="btn btn-primary mt-4 text-center w-25">Cancel</button>-->
+            <button type='submit' class="btn btn-primary mt-4 text-center w-25">Update</button>
+        </a>
+        
+       
+     </div>
+     </div>
+     </div>
+    </div>
+</form>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    $("#id_vigilance_hod").select2();
+    $("#id_vigilance_hod_reply").select2();
+    
+    $("#id_vigilance_complainant").select2({placeholder: 'Select Complainant'});
+    $("#id_vigilance_pending").select2(
+        {placeholder: 'Select an option'}
+    );
+</script>
+
+{% endblock script %}

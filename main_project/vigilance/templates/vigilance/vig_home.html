@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    
+        <div class="container-fluid" style="width:1440px;">
+       
+        <div class="card text-white bg-secondary fw-800" >
+            <div class='position-relative mb-3'>
+                <div class='position-absolute top-0 start-0'>
+                    <h4 class="text-white mx-3 mt-2"> Vigilance List </h4>
+                    
+                </div>
+                <div class="position-absolute top-0 end-0 mt-2 me-5">
+                    <a class="btn btn-info " href="{% url 'vig:vig_add' %}">Add New</a>
+                </div>
+            </div>
+            
+            <br>
+            <hr>
+            
+            
+        <div class="card-body">
+             
+             
+        <table id="example" class="table  table-hover table-bordered mt-2  mb-1" >
+            <thead class=" table-dark">
+                <tr>
+                    <th>Ref.Date</th>
+                    <th>Ref. No</th>
+                    <th>Eoffice</th>
+                    <th>Subject</th>
+                    <th>Complainant</th>
+                    
+                    <th>In Date</th>
+                    <th>HOD</th>
+                    <th>Out Ref</th>
+                    <th>Out Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in data %}
+                <tr>
+                    <td>{{d.vigilance_dt | date:"d-m-Y" }}</td>
+                    <td>{{d.vigilance_ref_no}}</td>
+                    <td>{{d.vigilance_eoffice}}</td>
+                    <td>{{d.vigilance_subject | linebreaks}}</td>
+                    <td>{{d.vigilance_complainant}}</td>
+                    <td>{{d.vigilance_inward_dt| date:"d-m-Y"}}</td>
+                    <td>{{d.vigilance_hod.all|join:", "}}</td>
+                    <td>{{d.vigilance_outward_ref}}</td>
+                    <td>{{d.vigilance_outward_dt | date:"d-m-Y"}}</td>
+                    <td>{{d.vigilance_pending}}</td>
+                    <td>
+                    <a class="btn btn-info ms-2 mx-2" href="{% url 'vig:vig_view' d.id %}">View</a>
+                    <a class="btn btn-primary ms-2" href="{% url 'vig:vig_update' d.id %}">Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Ref.Date</th>
+                    <th>Ref. No</th>
+                    <th>Eoffice</th>
+                    <th>Subject</th>
+                    <th>Complainant</th>
+                    <th>In Date</th>
+                    <th>HOD</th>
+                    <th>Out Ref</th>
+                    <th>Out Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        
+        </table>
+        
+    </div>
+    
+    </div>
+    
+</div>  
+
+
+    {% endblock content %}

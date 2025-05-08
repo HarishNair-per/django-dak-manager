@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    
+        <div class="container-fluid" style="width:1440px;">
+       
+        <div class="card text-white bg-secondary fw-800" >
+            <div class='position-relative mb-3'>
+                <div class='position-absolute top-0 start-0'>
+                    <h4 class="text-white mx-3 mt-2"> Asset List </h4>
+                    
+                </div>
+                <div class="position-absolute top-0 end-0 mt-2 me-5">
+                    <a class="btn btn-info " href="{% url 'fur:fur_add' %}">Add New</a>
+                </div>
+            </div>
+            
+            <br>
+            <hr>
+            
+            
+        <div class="card-body">
+             
+             
+        <table id="asset" class="table  table-hover table-bordered mt-2  mb-1" >
+            <thead class=" table-dark">
+                <tr>
+                    <th>Image</th>
+                    <th>Date of Receipt</th>
+                    <th>Type</th>
+                    <th>Qty</th>
+                    <th>Make</th>
+                    
+                    <th>Model</th>
+                    <th>Serial No</th>
+                    <th>Room</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in data %}
+                <tr>
+                    <td><img src='{{d.furniture_image.url}}' width='100px' height='100px'></td>
+                    <td>{{d.furniture_dt_receipt | date:"d-m-Y" }}</td>
+                    <td>{{d.get_furniture_type_display}}</td>
+                    <td>{{d.furniture_qty}}</td>
+                    <td>{{d.furniture_make}}</td>
+                    <td>{{d.furniture_model}}</td>
+                    <td>{{d.furniture_serial}}</td>
+                    <td>{{d.get_furniture_room_display}}</td>
+                    <td>{{furniture_remarks}}</td>
+                    
+                    <td>
+                    
+                    <a class="btn btn-primary ms-2" href="{% url 'fur:fur_update' d.id %}">Update</a>
+                    </td>
+
+                     
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Image</th>
+                    <th>Date of Receipt</th>
+                    <th>Type</th>
+                    <th>Qty</th>
+                    <th>Make</th>
+                    
+                    <th>Model</th>
+                    <th>Serial No</th>
+                    <th>Room</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        
+        </table>
+        
+    </div>
+    
+    </div>
+    
+</div>  
+
+
+    {% endblock content %}
+
+    {% block script %}
+
+       
+     <script>
+           $(document).ready(function() {
+            $.fn.DataTable.ext.pager.numbers_length = 5;
+            $('#asset').DataTable({
+                    dom: '<"container-fluid"<"row"<"col"B><"col"l><"col"f>>>rtip' ,
+                    pageLength: 2,
+                    
+                    
+            });
+            
+            }) ; 
+            
+          
+        </script>
+
+    
+    
+   
+
+        
+
+     {% endblock script %}

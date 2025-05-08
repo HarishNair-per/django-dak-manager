@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+  
+
+{% block content %}
+
+<div class="container mt-5" style="width:1400px;" >
+    <div class="card bg-secondary fw-800" >
+    <h4 class="card-header"> View Reference </h4>
+    <div class="card-body">
+    <form method='post' enctype=enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <form method='post' enctype="multipart/form-data">
+    {%csrf_token%}
+    <div class="col-sm mb-5 tableref tableContainer theadref tbodyref">
+            <!--<iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ excel_url }}" style="width:1200px; height:500px;" frameborder="0"><iframe>-->
+       
+        {% comment %} {%  if file_end == 'excel' %}
+            {{ table_html|safe }}
+        {% elif file_end == 'docx' %}
+
+            {{ html_doc |safe }}
+        
+        {% else %} {% endcomment %}
+
+           
+            
+            <iframe src="{{ ref_data.vigilance_subject_file.url}}" alt="Subject File" width="1250" height="500"></iframe>
+           
+
+        {% comment %} {% endif %} {% endcomment %}
+                        <!--<iframe src="{{ ref_data.subject_file.url }}" width="1250" height="500"></iframe>-->
+            <!--<a href="{{ absolute_url }}" target="_blank">Open in New Tab</a>-->
+            <!--iframe src="{{ excel_url }}/embed?" style="width:1200px; height:500px;" frameborder="0"><iframe>-->
+    </div>
+    <div class="col-sm mt-2 tableref tableContainer theadref tbodyref">
+             
+                <iframe src="{{ ref_data.vigilance_reply_file.url}}" alt="Reply File" width="1250" height="500"></iframe>
+             
+    </div>
+    </form>
+    
+   
+    </form>
+     <div class="col text-center justify-content-center">
+        <a href="{% url 'vig:vig_home' %}">
+            <!--<button class="btn btn-primary mt-4 text-center w-25">Cancel</button>-->
+            <button class="btn btn-primary mt-4 text-center w-25">Back to Home</button>
+        </a>
+     </div>
+    </div>
+    </div>
+
+{% endblock content %}
+

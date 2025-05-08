@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+  
+
+{% block content %}
+
+<form  method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="container mt-5" >
+     <div class="container mt-5" style="width:800px;" >
+    <div class="card  bg-secondary  fw-800" >
+    <h4 class="card-header"> Update Asset </h4>
+    <div class="card-body">
+
+    {{ form | crispy }}
+
+   
+    <div class="col text-center justify-content-center">
+        <a href="{% url 'fur:fur_home' %}">
+            <!--<button class="btn btn-primary mt-4 text-center w-25">Cancel</button>-->
+            <button type='submit' class="btn btn-primary mt-4 text-center w-25">Update</button>
+        </a>
+        
+       
+     </div>
+     </div>
+     </div>
+    </div>
+</form>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+   $("#id_furniture_type")
+    .select2(
+        {placeholder : 'Select Furniture Type'});
+
+    $("#id_furniture_room")
+    .select2(
+        {placeholder : 'Select Room'});
+</script>
+
+{% endblock script %}
