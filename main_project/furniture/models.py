@@ -2,6 +2,12 @@ from django.db import models
 
 # Create your models here.
 
+class AssetDesc(models.Model):
+    asset_name= models.CharField(max_length=50, blank=True)
+
+    def __str__(self):
+        return self.asset_name
+
 class Furniture(models.Model):
     
     room_choices=[
@@ -24,7 +30,7 @@ class Furniture(models.Model):
         ('8','Chair Executive'),
     ]
 
-    furniture_type= models.CharField(choices= furniture_choices)
+    furniture_type= models.ForeignKey(AssetDesc, on_delete=models.CASCADE)
     furniture_qty= models.PositiveSmallIntegerField(null=True, blank=True)
     furniture_dt_receipt= models.DateField(null=True, blank=True)
     furniture_make= models.CharField(max_length=60)
@@ -42,4 +48,4 @@ class Furniture(models.Model):
         ordering = ['-furniture_dt_receipt']
 
     def __str__(self):
-        return f"{self.furniture_type} - {self.furniture_model}"
+        return f"{self.furniture_type} - {self.furniture_make}"
