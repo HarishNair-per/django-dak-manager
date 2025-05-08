@@ -31,7 +31,7 @@ class Furniture(models.Model):
     furniture_model= models.CharField(max_length=60,null=True, blank=True)
     furniture_serial= models.CharField(max_length=60,null=True, blank=True)
     furniture_room= models.CharField(choices= room_choices)
-    furniture_image= models.ImageField(upload_to='furniture',null=True, blank=True)
+    furniture_image= models.ImageField(upload_to='assets',null=True, blank=True)
 
     
     furniture_remarks= models.TextField(null=True, blank=True)
@@ -39,7 +39,7 @@ class Furniture(models.Model):
     furniture_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-furniture_updated', '-furniture_created']
+        ordering = ['-furniture_dt_receipt']
 
     def __str__(self):
         return f"{self.furniture_type} - {self.furniture_model}"

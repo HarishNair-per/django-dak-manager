@@ -1,19 +1,55 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from django.http import JsonResponse
 
 from django.http import HttpResponse
 from .models import Vigilance , Complainant
-from .forms import ComplainantForm
+from vip_ref.models import HOD
+
+from .forms import ComplainantForm, AddVigDataForm
 
 #from .forms import AddDataForm
 # Create your views here.
 
 def vig_home(request):
-    return HttpResponse("Vigilance Home")
-# Create your views here.
+    data= Vigilance.objects.all()
+    context= {'data':data}
+    return render(request, 'vigilance/vig_home.html', context)
 
-# views.py
+def vig_add_data(request):
+
+    if request.method== "POST":
+        form= AddVigDataForm(request.POST, request.FILES)
+        print(form)
+        if form.is_valid():
+            
+            form.save()
+            return redirect('vig:vig_home')
+    context= {'form' : AddVigDataForm()}
+
+    return render(request, 'vigilance/vig_Add.html', context)
+
+
+def vig_update_data(request, pk):
+    #ref= Reference.objects.filter(id=pk)
+    
+    ref = get_object_or_404(Vigilance,id=pk)
+    form = AddVigDataForm(request.POST or None, request.FILES or None, instance=ref)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('vig:vig_home')
+    context = {
+        'form': form,
+        }
+    return render(request, 'vigilance/vig_update.html', context)
+
+def vig_view_ref(request, pk):
+    ref_data = Vigilance.objects.get(id=pk)
+    context= {'ref_data': ref_data}
+    return render(request, 'vigilance/vig_view_ref.html', context) 
+
+
+
 
 
 def createComplainant(request):

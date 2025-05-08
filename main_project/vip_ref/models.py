@@ -4,7 +4,8 @@ from django.conf import settings
 # Create your models here.
 
 def get_default():
-    return str(settings.MEDIA_ROOT) + '/reply/BLANK.pdf'
+    return str(settings.MEDIA_ROOT) + '/BLANK.pdf'
+    
 
 class HOD(models.Model):
     hod= models.CharField(max_length=20)
@@ -30,9 +31,10 @@ class Reference(models.Model):
     reference_dt = models.DateField()
     reference_subject = models.CharField(max_length=200)
     vip = models.ForeignKey(VIP, on_delete=models.CASCADE)
-    vip_sub = models.CharField(max_length=60)
+    vip_sub = models.CharField(max_length=60,null=True,blank=True)
     reference_contents = models.TextField(null=True, blank=True)
-    inward_dt = models.DateField()
+    inward_ref= models.CharField(max_length=100, null=True, blank=True)
+    inward_dt = models.DateField(null=True,blank=True)
 
     hod = models.ManyToManyField(HOD, blank=True, related_name='references')
     hod_reply = models.ManyToManyField(HOD, blank=True, related_name='references_reply')
