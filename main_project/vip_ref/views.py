@@ -111,3 +111,25 @@ def createVIP(request):
 
     context = {'vips': vips}
     return render(request, 'vip_ref/vip_entry.html', context)
+
+
+
+def createHOD(request):
+    
+    hods = HOD.objects.all()
+    if request.method == 'POST':
+
+        hod_name = request.POST.get('hod_name')
+        hod, created = HOD.objects.get_or_create(hod=hod_name)
+
+        """ VIP.objects.create(
+            
+            vip=request.POST.get('vip_name'),
+        ) """
+        hod.hod=hod.hod.upper()
+        hod.save()
+        #return redirect('vip:home')
+
+    context = {'hods': hods}
+    return render(request, 'vip_ref/hod_entry.html', context)
+

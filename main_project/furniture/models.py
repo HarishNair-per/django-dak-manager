@@ -8,6 +8,8 @@ class AssetDesc(models.Model):
     def __str__(self):
         return self.asset_name
 
+        
+
 class Furniture(models.Model):
     
     room_choices=[

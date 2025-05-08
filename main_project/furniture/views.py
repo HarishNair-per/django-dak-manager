@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Furniture
+from .models import Furniture, AssetDesc
 from .forms import AddAssetForm
 # Create your views here.
 
@@ -33,3 +33,23 @@ def fur_update(request,pk):
         'form': form,
         }
     return render(request, 'furniture/asset_update.html', context)
+
+
+def createAsset(request):
+    
+    assets = AssetDesc.objects.all()
+    if request.method == 'POST':
+
+        asset_name = request.POST.get('asset_name')
+        asset, created = AssetDesc.objects.get_or_create(asset_name=asset_name)
+
+        """ VIP.objects.create(
+            
+            vip=request.POST.get('vip_name'),
+        ) """
+        asset.asset_name=asset.asset_name.title()
+        asset.save()
+        #return redirect('vip:home')
+
+    context = {'assets': assets}
+    return render(request, 'furniture/asset_entry.html', context)
