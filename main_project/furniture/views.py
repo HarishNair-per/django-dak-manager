@@ -11,16 +11,18 @@ from xhtml2pdf import pisa
 from django.http import HttpResponse
 from .models import Furniture, AssetDesc
 from .forms import AddAssetForm
+from datetime import datetime
 
 # Create your views here.
 
 
 # pdf generation code
 
-def render_pdf_view(request, *args, **kwargs):
+def render_pdf_view(request):
     data= Furniture.objects.all()
+    date_now= datetime.now()
     template_path = 'furniture/asset_home_pdf.html'
-    context = {'data': data}
+    context = {'data': data, 'date_now':date_now}
 
     # Create a Django response object, and set content type to PDF
     response = HttpResponse(content_type='application/pdf')
@@ -47,6 +49,7 @@ def render_pdf_view(request, *args, **kwargs):
 
 def fur_home(request):
     data = Furniture.objects.all()
+    
     context= {'data':data}
     return render (request, 'furniture/asset_home.html', context)
 

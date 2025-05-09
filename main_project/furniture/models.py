@@ -1,4 +1,5 @@
 from django.db import models
+from django_advance_thumbnail import AdvanceThumbnailField
 
 # Create your models here.
 
@@ -40,6 +41,8 @@ class Furniture(models.Model):
     furniture_serial= models.CharField(max_length=60,null=True, blank=True)
     furniture_room= models.CharField(choices= room_choices)
     furniture_image= models.ImageField(upload_to='assets',null=True, blank=True)
+    thumbnail = AdvanceThumbnailField(source_field='furniture_image', upload_to='thumbnails/', null=True, blank=True,
+                                      size=(300, 300)) 
 
     
     furniture_remarks= models.TextField(null=True, blank=True)

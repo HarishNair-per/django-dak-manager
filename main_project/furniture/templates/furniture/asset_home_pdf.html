@@ -3,10 +3,10 @@
 
 
 {% block content %}
-
+<!--img src='static/images/logo.png' height="100px"-->
     
         
-                    <h1 class="text-white mx-3 mt-2"> Asset List </h1>
+                    <h1 class="text-white mx-3 mt-2"> Asset List as on {{ date_now |date:"d-m-Y"}}</h1>
                     
 
              
@@ -29,9 +29,13 @@
             <tbody>
                 {% for d in data %}
                 <tr>
-                    <td><img src='{{d.furniture_image.path}}' width='100px' height='100px'></td>
+                  {% if d.thumbnail %}
+                    <td><img src='{{d.thumbnail.path}}' width='100px' height='100px'></td>
+                  {% else %}
+                    <td> No Thumbnail Image</td>
+                  {% endif %}
                     <td>{{d.furniture_dt_receipt | date:"d-m-Y" }}</td>
-                    <td>{{d.get_furniture_type_display}}</td>
+                    <td>{{d.furniture_type}}</td>
                     <td>{{d.furniture_qty}}</td>
                     <td>{{d.furniture_make}}</td>
                     <td>{{d.furniture_model}}</td>
