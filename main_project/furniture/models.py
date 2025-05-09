@@ -1,5 +1,6 @@
 from django.db import models
-from django_advance_thumbnail import AdvanceThumbnailField
+#from django_advance_thumbnail import AdvanceThumbnailField
+from . utils import create_thumbnail
 
 # Create your models here.
 
@@ -41,8 +42,9 @@ class Furniture(models.Model):
     furniture_serial= models.CharField(max_length=60,null=True, blank=True)
     furniture_room= models.CharField(choices= room_choices)
     furniture_image= models.ImageField(upload_to='assets',null=True, blank=True)
-    thumbnail = AdvanceThumbnailField(source_field='furniture_image', upload_to='thumbnails/', null=True, blank=True,
-                                      size=(300, 300)) 
+    thumbnail_new= models.ImageField(upload_to='thumbnails_new',editable=False,null=True, blank=True)
+    #thumbnail = AdvanceThumbnailField(source_field='furniture_image', upload_to='thumbnails/', null=True, blank=True,
+    #                                     size=(300, 300)) 
 
     
     furniture_remarks= models.TextField(null=True, blank=True)
@@ -52,5 +54,12 @@ class Furniture(models.Model):
     class Meta:
         ordering = ['-furniture_dt_receipt']
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if not self.thumbnail_new:
+            thumbnail_new= create_thumbnail(self.furniture_image)
+            self.thumbnail_new.save(thumbnail_new.name, thumbnail_new)
+    
     def __str__(self):
         return f"{self.furniture_type} - {self.furniture_make}"
