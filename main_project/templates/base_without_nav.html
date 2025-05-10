@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+
+<html xmlns:pdf="http://xml.zope.org/namespaces/pdf">
 
     <head>
         <meta charset="utf-8">
@@ -15,6 +16,26 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         
     <style>
+
+     @page {
+            size: A4;
+            margin: 2cm;
+            @bottom-right {
+                content: "Page " counter(page) " of " counter(pages);
+                font-size: 10px;
+            }
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        /* Optional fixed footer for xhtml2pdf (some versions require this workaround) */
+        .footer {
+            position: running(footer);
+        }
+       
+
         table {
                 border-collapse: collapse;
                 }
@@ -29,6 +50,9 @@
             margin: 3px;
             
             }
+        
+        
+    
     </style>
         
     
@@ -53,6 +77,11 @@
                 <div class="text-center text-muted">
                     <small> Asset Management System</small>
                 </div>
+                
+                <div style="position: fixed; bottom: 1cm; right: 1cm; font-size: 10px;">
+                    Page <pdf:pageNumber /> of <pdf:pageCount />
+                 </div>
+                
             <!--/div--> 
         </footer>  
         

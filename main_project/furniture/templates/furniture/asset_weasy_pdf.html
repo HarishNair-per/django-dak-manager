@@ -1,0 +1,99 @@
+{% extends 'base_without_nav.html' %}
+{% load static %}
+
+ @page {
+
+            size: "A4";
+            margin: 1.2cm 1.5cm 3.5cm 1.5cm;
+
+            @top-center{
+                content:"D(HR) SECRETARIAT- SECL"
+            }
+
+            @bottom-right {
+                content: "Page" counter(page) " of " counter(pages);
+            }
+        }
+
+
+
+{% block content %}
+<!--img src='static/images/logo.png' height="100px"-->
+    
+        
+                    <h1 class="text-white mx-3 mt-2"> Asset List as on {{ date_now |date:"d-m-Y"}}</h1>
+                    
+
+             
+        <table repeat="1"  >
+            <thead >
+                <tr>
+                    <th>Image</th>
+                    <th>Date of Receipt</th>
+                    <th>Type</th>
+                    <th>Qty</th>
+                    <th>Make</th>
+                    
+                    <th>Model</th>
+                    <th>Serial No</th>
+                    <th>Room</th>
+                    <th>Remarks</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in data %}
+                <tr>
+                  {% if d.thumbnail_new %}
+                    <td><img src='{{d.thumbnail_new.path}}' width='100px' height='100px'></td>
+                  {% else %}
+                    <td> No Thumbnail Image</td>
+                  {% endif %}
+                    <td>{{d.furniture_dt_receipt | date:"d-m-Y" }}</td>
+                    <td>{{d.furniture_type}}</td>
+                    <td>{{d.furniture_qty}}</td>
+                    <td>{{d.furniture_make}}</td>
+                    <td>{{d.furniture_model}}</td>
+                    <td>{{d.furniture_serial}}</td>
+                    <td>{{d.get_furniture_room_display}}</td>
+                    <td>{{d.furniture_remarks}}</td>
+                    
+                    
+                     
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                
+            </tfoot>
+        
+        </table>
+
+
+    {% endblock content %}
+
+    {% block script %}
+
+       
+     <script>
+           $(document).ready(function() {
+            $.fn.DataTable.ext.pager.numbers_length = 5;
+            $('#asset').DataTable({
+                    dom: '<"container-fluid"<"row"<"col"B><"col"l><"col"f>>>rtip' ,
+                    pageLength: 2,
+                    
+                    
+            });
+            
+            }) ; 
+            
+          
+        </script>
+
+    
+    
+   
+
+        
+
+     {% endblock script %}

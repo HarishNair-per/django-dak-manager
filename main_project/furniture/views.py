@@ -5,7 +5,7 @@ import os
 
 #from django.contrib.staticfiles import finders
 
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string # weasy render_to_string
 from xhtml2pdf import pisa
 
 from django.http import HttpResponse
@@ -13,10 +13,20 @@ from .models import Furniture, AssetDesc
 from .forms import AddAssetForm
 from datetime import datetime
 
+
+#weasy
+""" from weasyprint import HTML
+import tempfile
+from django.conf import settings
+from urllib.parse import urljoin
+from pathlib import Path """
+
+
 # Create your views here.
 
 
 # pdf generation code
+
 
 def render_pdf_view(request):
     data= Furniture.objects.all()
@@ -44,7 +54,6 @@ def render_pdf_view(request):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
 
     return response
-
 # end pdf gen.
 
 def fur_home(request):

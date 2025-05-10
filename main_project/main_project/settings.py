@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'vigilance',
     "crispy_forms",
     "crispy_bootstrap5",
-    "django_advance_thumbnail",
+    #"django_advance_thumbnail",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

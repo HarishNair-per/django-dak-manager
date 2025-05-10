@@ -11,4 +11,7 @@ urlpatterns = [
     path('asset_entry/', views.createAsset , name='asset_entry'),
     path('asset_pdf/', views.render_pdf_view , name='asset_pdf'),
     
+    #path('asset_weasy_pdf/', views.create_weasy_pdf , name='asset_weasy_pdf'),
+    
+    
 ]
