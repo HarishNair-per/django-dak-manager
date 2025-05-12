@@ -16,7 +16,7 @@ def vip_home(request):
 
 
 def home(request):
-    data= Reference.objects.all()
+    data= Reference.objects.select_related('vip').prefetch_related('hod')
     context= {'data':data}
     return render(request, 'vip_ref/home.html', context)
 

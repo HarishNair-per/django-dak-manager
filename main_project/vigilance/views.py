@@ -12,7 +12,7 @@ from .forms import ComplainantForm, AddVigDataForm
 # Create your views here.
 
 def vig_home(request):
-    data= Vigilance.objects.all()
+    data= Vigilance.objects.select_related('vigilance_complainant').prefetch_related('vigilance_hod', 'vigilance_hod_reply')
     context= {'data':data}
     return render(request, 'vigilance/vig_home.html', context)
 

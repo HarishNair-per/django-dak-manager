@@ -57,7 +57,7 @@ def render_pdf_view(request):
 # end pdf gen.
 
 def fur_home(request):
-    data = Furniture.objects.all()
+    data = Furniture.objects.select_related('furniture_type').all()
     
     context= {'data':data}
     return render (request, 'furniture/asset_home.html', context)
