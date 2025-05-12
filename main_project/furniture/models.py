@@ -53,7 +53,7 @@ class Furniture(models.Model):
     furniture_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-furniture_dt_receipt']
+        ordering = ['furniture_room','-furniture_dt_receipt']
 
     def save(self, *args, **kwargs):
         old_thumbnail = None
