@@ -32,6 +32,46 @@ def create_thumbnail(image):
     return thumbnail
 
 
+#Clean up thumbnail file when the model is deleted
+"""     def delete(self, *args, **kwargs):
+        if self.thumbnail_new and self.thumbnail_new.name != str(settings.MEDIA_ROOT) + '/No_Image.jpg':
+            if self.thumbnail_new.storage.exists(self.thumbnail_new.name):
+                self.thumbnail_new.delete(save=False)
+        super().delete(*args, **kwargs)
+"""
+""" Also working 
+    def save(self, *args, **kwargs):
+        image_changed = False
+
+        # Check if image has changed
+        if self.pk:
+            try:
+                old = type(self).objects.get(pk=self.pk)
+                image_changed = old.furniture_image != self.furniture_image
+            except type(self).DoesNotExist:
+                image_changed = True
+        else:
+            image_changed = True  # new instance
+
+        super().save(*args, **kwargs)  # Save the original image first
+
+        if self.furniture_image and (not self.thumbnail_new or image_changed):
+            print(f"Generating new thumbnail for: {self.furniture_image.name}")
+            thumb = create_thumbnail(self.furniture_image)
+            self.thumbnail_new.save(thumb.name, thumb, save=False)
+            super().save(update_fields=["thumbnail_new"])  # Save the updated thumbnail 
+"""
+
+# def save(self, *args, **kwargs):
+#     super().save(*args, **kwargs)
+
+#     if not (self.thumbnail_new) or (self.thumbnail_new.name != self.furniture_image.name):
+#         print(self.thumbnail_new.name)
+#         thumbnail_new= create_thumbnail(self.furniture_image)
+#         self.thumbnail_new.save(thumbnail_new.name, thumbnail_new)
+    
+
+
 """ def create_weasy_pdf(request):
     data= Furniture.objects.all()
     date_now= datetime.now()

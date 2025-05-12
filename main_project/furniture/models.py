@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 #from django_advance_thumbnail import AdvanceThumbnailField
 from . utils import create_thumbnail
 
@@ -34,15 +35,15 @@ class Furniture(models.Model):
         ('8','Chair Executive'),
     ]
 
-    furniture_type= models.ForeignKey(AssetDesc, on_delete=models.CASCADE)
+    furniture_type= models.ForeignKey(AssetDesc, on_delete=models.CASCADE, related_name='furniture')
     furniture_qty= models.PositiveSmallIntegerField(null=True, blank=True)
     furniture_dt_receipt= models.DateField(null=True, blank=True)
     furniture_make= models.CharField(max_length=60)
     furniture_model= models.CharField(max_length=60,null=True, blank=True)
     furniture_serial= models.CharField(max_length=60,null=True, blank=True)
     furniture_room= models.CharField(choices= room_choices)
-    furniture_image= models.ImageField(upload_to='assets',null=True, blank=True)
-    thumbnail_new= models.ImageField(upload_to='thumbnails_new',editable=False,null=True, blank=True)
+    furniture_image= models.ImageField(upload_to='assets',null=True, blank=True, default=str(settings.MEDIA_ROOT) + '/No_Image.jpg')
+    thumbnail_new= models.ImageField(upload_to='thumbnails_new',editable=False, null=True, blank=True)
     #thumbnail = AdvanceThumbnailField(source_field='furniture_image', upload_to='thumbnails/', null=True, blank=True,
     #                                     size=(300, 300)) 
 
@@ -55,11 +56,22 @@ class Furniture(models.Model):
         ordering = ['-furniture_dt_receipt']
 
     def save(self, *args, **kwargs):
+        old_thumbnail = None
+        # Determine if this is a new instance or if the image has changed
+        try:
+            old = Furniture.objects.get(pk=self.pk)
+            if old.thumbnail_new.name != self.furniture_image.name:
+                old_thumbnail= old.thumbnail_new
+                self.thumbnail_new = create_thumbnail(self.furniture_image)
+        except Furniture.DoesNotExist:
+            # New instance
+            if self.furniture_image:
+                self.thumbnail_new = create_thumbnail(self.furniture_image)
+
         super().save(*args, **kwargs)
 
-        if not self.thumbnail_new:
-            thumbnail_new= create_thumbnail(self.furniture_image)
-            self.thumbnail_new.save(thumbnail_new.name, thumbnail_new)
-    
+        if old_thumbnail and old_thumbnail.storage.exists(old_thumbnail.name):
+            old_thumbnail.delete(save=False)
+
     def __str__(self):
         return f"{self.furniture_type} - {self.furniture_make}"
