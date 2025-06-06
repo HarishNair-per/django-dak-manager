@@ -13,6 +13,8 @@ from .models import Furniture, AssetDesc
 from .forms import AddAssetForm
 from datetime import datetime
 
+from django.db.models import Sum 
+
 
 #weasy
 """ from weasyprint import HTML
@@ -25,9 +27,33 @@ from pathlib import Path """
 # Create your views here.
 
 
+
+def summarize(request):
+    furniture= Furniture.objects.all()
+    sum_fur= Furniture.objects.values('furniture_type__asset_name').annotate(Sum('furniture_qty')) # directly took name foreignkey
+    sum_fur_room= Furniture.objects.values('furniture_room','furniture_type__asset_name').annotate(Sum('furniture_qty')).order_by('furniture_room')
+    sum_fur_fur= Furniture.objects.values('furniture_type__asset_name','furniture_room').annotate(Sum('furniture_qty')).order_by('furniture_type')
+    print(sum_fur)
+    print()
+    print(sum_fur_room)
+    print()
+    print(sum_fur_fur)
+    date_now= datetime.now()
+
+    #manually create display objects
+
+    room_choices_dict = dict(Furniture.room_choices)
+
+    for item in sum_fur_room:
+        item['furniture_room_display'] = room_choices_dict.get(item['furniture_room'], item['furniture_room'])
+    
+    for item in sum_fur_fur:
+        item['furniture_room_display'] = room_choices_dict.get(item['furniture_room'], item['furniture_room'])
+
+    context= {"data": sum_fur, 'rooms': sum_fur_room,'by_fur': sum_fur_fur, 'date_now':date_now, 'furnitures': furniture}
+    return render (request, 'furniture/asset_summary.html', context)
+
 # pdf generation code
-
-
 def render_pdf_view(request):
     data= Furniture.objects.all()
     date_now= datetime.now()

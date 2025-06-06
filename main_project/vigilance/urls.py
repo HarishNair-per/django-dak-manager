@@ -11,6 +11,7 @@ urlpatterns = [
     path('vig_add/', views.vig_add_data , name='vig_add'),
     path('vig_update/<str:pk>/', views.vig_update_data , name='vig_update'),
     path('vig_view/<str:pk>/', views.vig_view_ref , name='vig_view'),
+    path('exportxls/', views.vig_to_excel, name='vig_excel'),
     
     
 ]

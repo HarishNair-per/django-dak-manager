@@ -10,6 +10,7 @@ urlpatterns = [
     path('asset_update/<str:pk>/', views.fur_update , name='fur_update'),
     path('asset_entry/', views.createAsset , name='asset_entry'),
     path('asset_pdf/', views.render_pdf_view , name='asset_pdf'),
+    path('asset_summarize/', views.summarize, name='summarize')
     
     #path('asset_weasy_pdf/', views.create_weasy_pdf , name='asset_weasy_pdf'),
     

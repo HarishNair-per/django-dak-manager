@@ -144,4 +144,4 @@ MEDIA_ROOT = BASE_DIR / 'images'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = 'SAMEORIGIN' # for iframe
