@@ -30,6 +30,7 @@ class Vigilance(models.Model):
     vigilance_complainant=models.ForeignKey(Complainant, on_delete= models.CASCADE)
     
     vigilance_contents= models.TextField(null=True, blank=True)
+    vigilance_inward_no=models.CharField(max_length=100, null=True, blank=True)
     vigilance_inward_dt= models.DateField(null=True,blank=True)
 
     vigilance_hod = models.ManyToManyField(HOD, blank=True, related_name='HOD')

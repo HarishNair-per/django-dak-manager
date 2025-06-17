@@ -27,7 +27,7 @@ class Reference(models.Model):
         ('Replied','Replied')
     ]
 
-
+    reference_no=models.CharField(max_length=100, null=True, blank=True)
     reference_dt = models.DateField()
     reference_subject = models.CharField(max_length=200)
     vip = models.ForeignKey(VIP, on_delete=models.CASCADE)
