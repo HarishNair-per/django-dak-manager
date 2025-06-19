@@ -105,7 +105,7 @@ def createVIP(request):
             
             vip=request.POST.get('vip_name'),
         ) """
-        vip.vip=vip.vip.title()
+        vip.vip=vip.vip.upper()
         vip.save()
         #return redirect('vip:home')
 

@@ -31,7 +31,7 @@ class Reference(models.Model):
     reference_dt = models.DateField()
     reference_subject = models.CharField(max_length=200)
     vip = models.ForeignKey(VIP, on_delete=models.CASCADE)
-    vip_sub = models.CharField(max_length=60,null=True,blank=True)
+    vip_sub = models.CharField(max_length=200,null=True,blank=True)
     reference_contents = models.TextField(null=True, blank=True)
     inward_ref= models.CharField(max_length=100, null=True, blank=True)
     inward_dt = models.DateField(null=True,blank=True)

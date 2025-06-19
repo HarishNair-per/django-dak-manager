@@ -30,6 +30,7 @@
             <thead class=" table-dark">
                 <tr>
                     <th>Ref.Date</th>
+                    <th>Ref.No</th>
                     <th>Ref.Subject</th>
                     <th>VIP</th>
                     <th>VIP_Sub</th>
@@ -46,6 +47,7 @@
                 {% for d in data %}
                 <tr>
                     <td>{{d.reference_dt | date:"d-m-Y" }}</td>
+                    <td>{{d.reference_no}}</td>
                     <td>{{d.reference_subject}}</td>
                     <td>{{d.vip}}</td>
                     <td>{{d.vip_sub}}</td>
@@ -65,6 +67,7 @@
             <tfoot>
                 <tr>
                     <th>Ref.Date</th>
+                    <th>Ref.No</th>
                     <th>Ref.Subject</th>
                     <th>VIP</th>
                     <th>VIP_Sub</th>

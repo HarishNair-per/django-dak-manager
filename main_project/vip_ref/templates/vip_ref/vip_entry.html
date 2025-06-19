@@ -30,7 +30,7 @@
                         <datalist id="vip_name-list">
                           <!--select id="vip_name"-->
                             {% for vip in vips %}
-                            <option value="{{vip.vip|title}}"></option>
+                            <option value="{{vip.vip|upper}}"></option>
                             <!--<option value="{{vip.vip|title}}">{{vip.vip}}</option>-->
                             {% endfor %}
                           <!--/select-->
