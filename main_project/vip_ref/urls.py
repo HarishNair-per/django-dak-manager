@@ -27,5 +27,6 @@ urlpatterns = [
     path('view_ref/<str:pk>/', views.view_ref, name='view_ref'),
     path('vip_entry/', views.createVIP, name='vip_entry'),
     path('hod_entry/', views.createHOD, name='hod_entry'),
+    path('vip/vipexcel/', views.vip_to_excel, name='export-xls'),
 
 ]

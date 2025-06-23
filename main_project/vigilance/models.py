@@ -23,24 +23,26 @@ class Vigilance(models.Model):
         ('Replied','Replied')
     ]
 
-    vigilance_ref_no=models.CharField(max_length=100, null=True, blank=True)
-    vigilance_dt= models.DateField(null=True,blank=True)
+    vigilance_ref_no=models.CharField(max_length=100, null=True, blank=True,verbose_name='Reference No. (VIGILANCE)')
+    vigilance_dt= models.DateField(null=True,blank=True,verbose_name='Date')
     vigilance_eoffice= models.PositiveIntegerField(null=True, blank=True)
     vigilance_subject= models.CharField(max_length=200)
     vigilance_complainant=models.ForeignKey(Complainant, on_delete= models.CASCADE)
     
     vigilance_contents= models.TextField(null=True, blank=True)
-    vigilance_inward_no=models.CharField(max_length=100, null=True, blank=True)
-    vigilance_inward_dt= models.DateField(null=True,blank=True)
+    vigilance_inward_no=models.CharField(max_length=100, null=True, blank=True,verbose_name='Inward DP No.')
+    vigilance_inward_dt= models.DateField(null=True,blank=True,verbose_name='Date')
 
-    vigilance_hod = models.ManyToManyField(HOD, blank=True, related_name='HOD')
-    vigilance_hod_reply = models.ManyToManyField(HOD, blank=True, related_name='HOD_reply')
-    vigilance_outward_ref= models.CharField(max_length=60, null=True, blank=True)
-    vigilance_outward_dt= models.DateField(null=True,blank=True)
-
+    vigilance_hod = models.ManyToManyField(HOD, blank=True, related_name='HOD',verbose_name='Sent to HoD')
+    vigilance_hod_reply = models.ManyToManyField(HOD, blank=True, related_name='HOD_reply', verbose_name='Received from HoD')
+    
     vigilance_subject_file = models.FileField(upload_to='vig_subject',null=True, blank=True, default=get_default)
     vigilance_reply_file = models.FileField(upload_to='vig_reply',null=True, blank=True, default=get_default)
     vigilance_pending= models.CharField(choices= pending_choices,null=True, blank=True)
+
+    vigilance_outward_ref= models.CharField(max_length=60, null=True, blank=True,verbose_name='Outward Reference No.')
+    vigilance_outward_dt= models.DateField(null=True,blank=True,verbose_name='Date')
+
     vigilance_remarks= models.TextField(null=True, blank=True)
     vigilance_updated = models.DateTimeField(auto_now=True)
     vigilance_created = models.DateTimeField(auto_now_add=True)

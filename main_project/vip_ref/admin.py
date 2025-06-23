@@ -5,5 +5,5 @@ from . models import HOD, Reference, VIP
 
 admin.site.register(HOD)
 admin.site.register(Reference, ImportExportModelAdmin)
-admin.site.register(VIP)
+admin.site.register(VIP, ImportExportModelAdmin)
 

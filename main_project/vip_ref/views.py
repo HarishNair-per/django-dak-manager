@@ -3,6 +3,11 @@ import pandas as pd
 import mammoth 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+
+import pandas as pd
+from django.utils import timezone
+
+
 from .models import Reference, HOD, VIP
 from .forms import AddDataForm
 from django.conf import settings
@@ -133,3 +138,42 @@ def createHOD(request):
     context = {'hods': hods}
     return render(request, 'vip_ref/hod_entry.html', context)
 
+
+def vip_to_excel(request):
+    vips= Reference.objects.select_related('vip').prefetch_related('hod','hod_reply').all()
+
+
+    # Get all field names from the Reference model
+    vip_fields = [field.name for field in Reference._meta.fields]
+    
+    # Initialize a list to hold the data
+    data = []
+    
+    for vip in vips:
+        # Get the vip's data
+        vip_data = {field: getattr(vip, field) for field in vip_fields}
+        #vigilance_data['complainant_name'] = vigilance.vigilance_complainant.name # fecth the name of Foreign key but notneeded 
+             
+                
+        vip_data['to_HOD'] = ', '.join(v.hod for v in vip.hod.all()) # join many to many field object
+        vip_data['from_HOD'] = ', '.join(v.hod for v in vip.hod_reply.all())
+        
+                
+        data.append(vip_data)
+        
+    
+    # Convert the list of dictionaries to a pandas DataFrame
+    df = pd.DataFrame(data)
+    
+       
+    for col in df.select_dtypes(include=['datetime64[ns, UTC]']).columns:
+        df[col] = df[col].dt.tz_convert(None)
+
+    # Create an Excel writer object
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=VIP_Details.xlsx'
+    
+    # Write the DataFrame to the response
+    df.to_excel(response, index=False)
+    
+    return response
